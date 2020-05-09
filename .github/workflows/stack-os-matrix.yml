@@ -10,7 +10,7 @@ on:
 jobs:
   build-centos:
     runs-on: ubuntu-latest
-    if: starsWith(github.event.body, "SOM: ")
+    if: startsWith(github.event.body, "SOM: ")
     container:
       image: centos:8
       env:
