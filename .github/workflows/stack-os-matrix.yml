@@ -1,0 +1,32 @@
+name: stack-os-matrix
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  issue_comment:
+    types: [ created, edited ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-centos:
+    runs-on: ubuntu-latest
+    if: startswith(github.event.body, "SOM: ")
+    container:
+      image: centos:8
+      env:
+        - GITHUB_WORKSPACE: /workspace
+      volumes:
+        - ${{ GITHUB_WORKSPACE }}:/workspace
+    steps:
+      - name: Deploy and build
+        run: |
+          echo hi
+  build-macos:
+    runs-on: macos-latest
+    if: startswith(github.event.body, "SOM: ")
+    steps:
+      - name: Deploy and build
+        run: |
+          echo hi
+    
+        
