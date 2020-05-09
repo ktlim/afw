@@ -10,7 +10,7 @@ on:
 jobs:
   build-centos:
     runs-on: ubuntu-latest
-    if: startswith(github.event.body, "SOM: ")
+    if: starsWith(github.event.body, "SOM: ")
     container:
       image: centos:8
       env:
@@ -23,7 +23,7 @@ jobs:
           echo hi
   build-macos:
     runs-on: macos-latest
-    if: startswith(github.event.body, "SOM: ")
+    if: startsWith(github.event.body, "SOM: ")
     steps:
       - name: Deploy and build
         run: |
