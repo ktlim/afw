@@ -8,7 +8,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-centos:
+  build-centos8:
     runs-on: ubuntu-latest
     container:
       image: centos:8
@@ -17,18 +17,41 @@ jobs:
       volumes:
         - ${{ github.workspace }}:/workspace
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Deploy and build
         run: |
           pwd
-          echo '${{ github.event.labels }}'
-          yum list
+          ls
+          echo $GITHUB_WORKSPACE
+          ls /workspace
+          echo '${{ github.event }}'
+  build-centos7:
+    runs-on: ubuntu-latest
+    container:
+      image: centos:7
+      env:
+        GITHUB_WORKSPACE: /workspace
+      volumes:
+        - ${{ github.workspace }}:/workspace
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy and build
+        run: |
+          pwd
+          ls
+          echo $GITHUB_WORKSPACE
+          ls /workspace
+          echo '${{ github.event }}'
   build-macos:
     runs-on: macos-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Deploy and build
         run: |
           pwd
-          echo '${{ github.event.labels }}'
-          which clang
-    
-        
+          ls
+          echo $GiTHUB_WORKSPACE
+          echo '${{ github.event.pull_request }}'
