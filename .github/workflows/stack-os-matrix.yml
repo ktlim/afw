@@ -21,4 +21,6 @@ jobs:
       - name: Deploy
         run: lsstsw/bin/deploy
       - name: Rebuild
-        run: lsstsw/bin/rebuild -r ${{ github.event.pull_request.head.ref }} lsst_distrib
+        run: |
+          lsstsw/bin/envconfig
+          lsstsw/bin/rebuild -r ${{ github.event.pull_request.head.ref }} lsst_distrib
