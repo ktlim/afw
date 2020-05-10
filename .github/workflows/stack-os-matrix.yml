@@ -14,6 +14,8 @@ jobs:
     container:
       image: centos:8
     steps:
+      - name: Install prerequisites
+        run: yum install git patch diffutils
       - name: Clone lsstsw
         run: git clone https://github.com/lsst/lsstsw
       - name: Deploy
