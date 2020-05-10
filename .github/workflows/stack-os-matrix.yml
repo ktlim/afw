@@ -10,7 +10,6 @@ on:
 jobs:
   build-centos:
     runs-on: ubuntu-latest
-    if: contains(github.event.labels.*.name, 'CI')
     container:
       image: centos:8
       env:
@@ -20,13 +19,16 @@ jobs:
     steps:
       - name: Deploy and build
         run: |
-          echo hi
+          pwd
+          echo '${{ github.event.labels }}'
+          yum list
   build-macos:
     runs-on: macos-latest
-    if: contains(github.event.labels.*.name, 'CI')
     steps:
       - name: Deploy and build
         run: |
-          echo hi
+          pwd
+          echo '${{ github.event.labels }}'
+          which clang
     
         
