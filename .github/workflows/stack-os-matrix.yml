@@ -10,6 +10,7 @@ on:
 jobs:
   build-centos8:
     runs-on: ubuntu-latest
+    if: github.label.name == 'CI'
     container:
       image: centos:8
     steps:
