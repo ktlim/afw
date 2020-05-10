@@ -26,5 +26,5 @@ jobs:
         run: |
           export LSSTSW=`pwd`/lsstsw
           export PATH=$LSSTSW/bin:$PATH
-          envconfig
+          source envconfig
           lsstsw/bin/rebuild -r ${{ github.event.pull_request.head.ref }} lsst_distrib
