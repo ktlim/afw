@@ -19,7 +19,9 @@ jobs:
       - name: Clone lsstsw
         run: git clone https://github.com/lsst/lsstsw
       - name: Deploy
-        run: lsstsw/bin/deploy
+        run: |
+          export LSSTSW=`pwd`/lsstsw
+          lsstsw/bin/deploy
       - name: Rebuild
         run: |
           export LSSTSW=`pwd`/lsstsw
