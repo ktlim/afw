@@ -13,18 +13,19 @@ jobs:
     if: github.event.label.name == 'CI'
     container:
       image: centos:8
+      env:
+        LSSTSW: ${{ github.workspace }}/lsstsw
     steps:
       - name: Install prerequisites
         run: yum install -y --setopt=tsflags=nodocs git patch diffutils
       - name: Clone lsstsw
-        run: git clone https://github.com/lsst/lsstsw
+        run: git clone https://github.com/lsst/lsstsw $LSSTSW
       - name: Deploy
         run: |
-          export LSSTSW=`pwd`/lsstsw
-          lsstsw/bin/deploy
+          $LSSTSW/bin/deploy
       - name: Rebuild
+        shell: bash
         run: |
-          export LSSTSW=`pwd`/lsstsw
           export PATH=$LSSTSW/bin:$PATH
           source envconfig
-          lsstsw/bin/rebuild -r ${{ github.event.pull_request.head.ref }} lsst_distrib
+          rebuild -r ${{ github.event.pull_request.head.ref }} lsst_distrib
