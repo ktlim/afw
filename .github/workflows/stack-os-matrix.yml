@@ -14,11 +14,9 @@ jobs:
     container:
       image: centos:8
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Deploy and build
-        run: |
-          pwd
-          ls
-          echo "** $GITHUB_WORKSPACE **"
-          echo '${{ toJSON(github.event) }}'
+      - name: Clone lsstsw
+        run: git clone https://github.com/lsst/lsstsw
+      - name: Deploy
+        run: lsstsw/bin/deploy
+      - name: Rebuild
+        run: lsstsw/bin/rebuild -r ${{ github.event.pull_request.head.ref }} lsst_distrib
